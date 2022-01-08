@@ -1,0 +1,70 @@
+<HTML><HEAD>
+<STYLE TYPE="text/css">
+<!--
+  BODY  {background: white; color: black }
+  P { text-align: justify}
+  .quote { font-style: italic}
+-->
+</STYLE>
+<TITLE>Fraction.</TITLE>
+</HEAD><BODY><H1>Fraction.</H1>
+<IMG src="logofrac.gif" alt="0.5=1/2 ; 2/4 = 1/2">
+<H2>Trouve et simplifie vos fractions dans <IMG src="Q.gif" alt="l'ensemble des fractions">
+ (de <IMG src="R.gif" alt="l'ensemble des réels">).</H2>
+<SCRIPT language="javascript">
+
+prec=Math.pow(10,-9); // (Si vous préférez 10^-7 ...)
+//prec=0; // Bof, Ca donne parfois des boucles infinies. (A cause des arrondis !)
+
+operation=window.prompt("Entrez votre nombre, votre calcul, ou votre fraction :","2/3+1/4");
+nombr=eval(operation);
+//document.write("Calcul en cours...<BR>");
+if (Math.abs(nombr)==Math.floor(Math.abs(nombr)))
+// si entier ...
+{
+document.write(operation," = ",nombr," / 1");
+}
+else
+{
+// le nombre est donc obligatoiremt non nul !
+// Puisque non entier !
+// Dc on pt s'en servir comme diviseur !
+signombr=(nombr / (Math.abs(nombr)));    // le signe de nombr    
+nombr=Math.abs(nombr);
+//document.write("signombr =", signombr,"<BR>"); //ok
+//document.write("abs de nombr =", nombr,"<BR>"); 
+I=1;
+while (true)
+{
+ X=I*nombr;
+ Y=I/nombr;
+ if ((X-Math.floor(X))<prec)
+  {
+  X=Math.floor(signombr * X); // on pallie les arrondis et le signe.
+  document.write(operation," = ",X,"/", I);
+  calc=1;
+  break;
+  }
+ else if ((Y-Math.floor(Y))<prec)
+  {
+  I=signombr * I; //// on pallie le signe.
+  Y=Math.floor(Y); // on pallie les arrondis.
+  document.write(operation," = ",I,"/",Y);
+  calc=1;
+  break;
+  }
+else 
+{
+ I=I+1;
+}
+// ^ fin de if~else
+ }
+// ^ fin de while
+}
+//^ fin de nombre non entier (non nul).
+//document.write("<BR>Fini !")
+</SCRIPT><NOSCRIPT><P>Ce logiciel est écrit en JavaScript.<BR>
+Veuillez donc activer le JavaScript de votre navigateur.
+<P>C'est faisable dans la partie <SPAN class=QUOTE>Options</SPAN>, ou dans la partie 
+<SPAN class=QUOTE>Préférences</SPAN> de votre navigateur.
+</NOSCRIPT></BODY></HTML>
